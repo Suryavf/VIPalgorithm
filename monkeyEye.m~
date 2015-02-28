@@ -3,16 +3,15 @@ clc
 clear all
 close all
 
-img  = imread('img/dog.jpg');
-%img = imresize(im,2,'bicubic');
+% img  = imread('img/dog.jpg');
+% r = double(img(177:1200,897:1920,1));
+% g = double(img(177:1200,897:1920,2));
+% b = double(img(177:1200,897:1920,3));
 
-% r = zeros(2048,2048);  g = zeros(2048,2048); b = zeros(2048,2048);
-% r(1:1200,1:1920) = double(img(:,:,1));
-% g(1:1200,1:1920) = double(img(:,:,2));
-% b(1:1200,1:1920) = double(img(:,:,3));
-r = double(img(177:1200,897:1920,1));
-g = double(img(177:1200,897:1920,2));
-b = double(img(177:1200,897:1920,3));
+img  = imread('img/oso.jpg');
+r = double(img(177:1200,177:1200,1));
+g = double(img(177:1200,177:1200,2));
+b = double(img(177:1200,177:1200,3));
 
 % Pesos
 ak = [0.2909    0.2545    0.2182    0.1455    0.0727    0.0182];
@@ -39,8 +38,8 @@ Imap = Imap/norm(Imap);
 Ip   = stand(Imap);
 
 %% Caracteristica de orientacion
-sigX = 5;     sigY  = 1;
-f0   = 1/4.5; sizeW = 19;
+sigX = 5;    sigY  = 1;
+f0   = 1/5; sizeW = 39;
 
 O0   = filterGabor(I0,sigX,sigY,f0,   0,sizeW);
 O45  = filterGabor(I0,sigX,sigY,f0,pi/4,sizeW);
@@ -112,15 +111,17 @@ RGmap = normalize(dRG(:,:,1)) + normalize(dRG(:,:,2)) + ...
         normalize(dRG(:,:,3)) + normalize(dRG(:,:,4)) + ...
         normalize(dRG(:,:,5)) + normalize(dRG(:,:,6));
 
-BYmap = dBY(:,:,1) + dBY(:,:,2) + ...
-        dBY(:,:,3) +...
-        dBY(:,:,4) + dBY(:,:,5) + dBY(:,:,6);
+BYmap = normalize(dBY(:,:,1)) + normalize(dBY(:,:,2)) + ...
+        normalize(dBY(:,:,3)) + normalize(dBY(:,:,4)) + ...
+        normalize(dBY(:,:,5)) + normalize(dBY(:,:,6));
 
-RCmap = dRC(:,:,1) + dRC(:,:,2) + dRC(:,:,3) +...
-        dRC(:,:,4) + dRC(:,:,5) + dRC(:,:,6);
+RCmap = normalize(dRC(:,:,1)) + normalize(dRC(:,:,2)) + ...
+        normalize(dRC(:,:,3)) + normalize(dRC(:,:,4)) + ...
+        normalize(dRC(:,:,5)) + normalize(dRC(:,:,6));
 
-GMmap = dGM(:,:,1) + dGM(:,:,2) + dGM(:,:,3) +...
-        dGM(:,:,4) + dGM(:,:,5) + dGM(:,:,6);
+GMmap = normalize(dGM(:,:,1)) + normalize(dGM(:,:,2)) + ...
+        normalize(dGM(:,:,3)) + normalize(dGM(:,:,4)) + ...
+        normalize(dGM(:,:,5)) + normalize(dGM(:,:,6));
 
 Cmap = RGmap + BYmap + RCmap + GMmap;
 
@@ -139,7 +140,6 @@ subplot(2,2,4); imshow(uint8(GMmap))
 
 %% Resultado
 S = (Imap + Cmap + Omap)/3;
-%S = (Imap + Cmap)/2;
 S = stand(S);
 
 figure

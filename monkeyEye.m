@@ -4,15 +4,25 @@ clear all
 close all
 
 img  = imread('img/dog.jpg');
-%img = imresize(im,2,'bicubic');
-
-% r = zeros(2048,2048);  g = zeros(2048,2048); b = zeros(2048,2048);
-% r(1:1200,1:1920) = double(img(:,:,1));
-% g(1:1200,1:1920) = double(img(:,:,2));
-% b(1:1200,1:1920) = double(img(:,:,3));
 r = double(img(177:1200,897:1920,1));
 g = double(img(177:1200,897:1920,2));
 b = double(img(177:1200,897:1920,3));
+
+% img  = imread('img/oso.jpg');
+% r = double(img(177:1200,177:1200,1));
+% g = double(img(177:1200,177:1200,2));
+% b = double(img(177:1200,177:1200,3));
+
+% img  = imread('img/elefantes.jpg');
+% r = double(img(1:1024,177:1200,1));
+% g = double(img(1:1024,177:1200,2));
+% b = double(img(1:1024,177:1200,3));
+
+% p = 150; q = 200;
+% img  = imread('img/castillo.jpg');
+% r = double(img(p:p+1023,q:q+1023,1));
+% g = double(img(p:p+1023,q:q+1023,2));
+% b = double(img(p:p+1023,q:q+1023,3));
 
 % Pesos
 ak = [0.2909    0.2545    0.2182    0.1455    0.0727    0.0182];
@@ -39,8 +49,8 @@ Imap = Imap/norm(Imap);
 Ip   = stand(Imap);
 
 %% Caracteristica de orientacion
-sigX = 5;     sigY  = 1;
-f0   = 1/4.5; sizeW = 19;
+sigX = 10;    sigY  = 2;
+f0   = 1/5; sizeW = 39;
 
 O0   = filterGabor(I0,sigX,sigY,f0,   0,sizeW);
 O45  = filterGabor(I0,sigX,sigY,f0,pi/4,sizeW);
@@ -141,7 +151,6 @@ subplot(2,2,4); imshow(uint8(GMmap))
 
 %% Resultado
 S = (Imap + Cmap + Omap)/3;
-%S = (Imap + Cmap)/2;
 S = stand(S);
 
 figure
@@ -150,6 +159,10 @@ subplot(1,3,1); imshow(uint8(Ip)); title('Mapa de Intensidad')
 subplot(1,3,2); imshow(uint8(Op)); title('Mapa de Orientacion')
 subplot(1,3,3); imshow(uint8(Cp)); title('Mapa de Color')
 
+mS = (S - min(min(S)))*255/max(max(S));
+mS = mS.^2.5;
+mS = stand(mS);
+
 figure
 set(gcf,'numbertitle','off','name','Salency Map')
-imshow(uint8(S))
+imshow(uint8(mS))
