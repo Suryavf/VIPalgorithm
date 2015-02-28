@@ -1,5 +1,5 @@
 function imgOut = piramGaussJ(imgIn)
-[rows cols ~] = size(imgIn);
+[rows cols] = size(imgIn);
 
 a = 2;
 for i=1:rows

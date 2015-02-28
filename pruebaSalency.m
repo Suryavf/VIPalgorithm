@@ -3,10 +3,12 @@ clc
 clear all
 close all
 
-% im  = imread('babu.jpg');
+% im  = imread('img/babu.jpg');
 % img = im(1:512,129:1152,1:3);
 im  = imread('img/Lenna.png');
 img = imresize(im,2,'bicubic');
+
+metInt = 'bilinear';
 
 r   = double(img(:,:,1));
 g   = double(img(:,:,2));
@@ -17,30 +19,17 @@ I0 = (r+g+b)/3;       I1 = piramGaussJ(I0); I2 = piramGaussJ(I1);
 I3 = piramGaussJ(I2); I4 = piramGaussJ(I3); I5 = piramGaussJ(I4); 
 I6 = piramGaussJ(I5); I7 = piramGaussJ(I6); I8 = piramGaussJ(I7);
 
-% figure
-% subplot(3,3,1); imshow(uint8(I0))
-% subplot(3,3,2); imshow(uint8(I1))
-% subplot(3,3,3); imshow(uint8(I2))
-% subplot(3,3,4); imshow(uint8(I3))
-% subplot(3,3,5); imshow(uint8(I4))
-% subplot(3,3,6); imshow(uint8(I5))
-% subplot(3,3,7); imshow(uint8(I6))
-% subplot(3,3,8); imshow(uint8(I7))
-% subplot(3,3,9); imshow(uint8(I8))
-
-I25i = imresize(I5, 8,'bicubic'); I26i = imresize(I6,16,'bicubic');
-I36i = imresize(I6, 8,'bicubic'); I37i = imresize(I7,16,'bicubic');
-I47i = imresize(I7, 8,'bicubic'); I48i = imresize(I8,16,'bicubic');
+I25i = imresize(I5, 8,metInt); I26i = imresize(I6,16,metInt);
+I36i = imresize(I6, 8,metInt); I37i = imresize(I7,16,metInt);
+I47i = imresize(I7, 8,metInt); I48i = imresize(I8,16,metInt);
 
 I25 = abs(I2 - I25i); I26 = abs(I2 - I26i);
 I36 = abs(I3 - I36i); I37 = abs(I3 - I37i);
 I47 = abs(I4 - I47i); I48 = abs(I4 - I48i);
 
-% figure
-% subplot(2,2,1); imshow(uint8(I25))
-% subplot(2,2,2); imshow(uint8(I26))
-% subplot(2,2,3); imshow(uint8(I25+I26))
-% subplot(2,2,4); imshow(uint8(I0))
+I25 = imresize(I25,2,metInt); I26 = imresize(I26,2,metInt);
+I36 = imresize(I36,4,metInt); I37 = imresize(I37,4,metInt);
+I47 = imresize(I47,8,metInt); I48 = imresize(I48,8,metInt);
 
 figure
 set(gcf,'numbertitle','off','name','Caracteristica de Intensidad')
@@ -52,17 +41,15 @@ subplot(2,3,5); imshow(uint8(I47))
 subplot(2,3,6); imshow(uint8(I48))
 
 % Mapa de Intensidad
-I36r = imresize(I36,2,'bicubic'); I37r = imresize(I37,2,'bicubic');
-I47r = imresize(I47,4,'bicubic'); I48r = imresize(I48,4,'bicubic');
+Imap = I25 + I26 + I36 + I37 + I47 + I48;
+Imap = stand(Imap);
 
-Imap = I25 + I26 + I36r + I37r + I47r + I48r;
-Imap = Imap./norm(Imap);
+figure
+imshow(uint8(Imap))
 
 %% Caracteristica de color
 Rp = r/255; Gp = g/255; Bp = b/255; 
 K = 1 - max(max(Rp,Gp),Bp);
-%C = (1-Rp-K)/(1-K);
-%M = (1-Gp-K)/(1-K);
 Y = (1-Bp-K)./(1-K);
 
 RG0 = Rp-Gp;            RG1 = piramGaussJ(RG0); RG2 = piramGaussJ(RG1); 
@@ -73,13 +60,13 @@ BY0 = Bp-Y;             BY1 = piramGaussJ(BY0); BY2 = piramGaussJ(BY1);
 BY3 = piramGaussJ(BY2); BY4 = piramGaussJ(BY3); BY5 = piramGaussJ(BY4); 
 BY6 = piramGaussJ(BY5); BY7 = piramGaussJ(BY6); BY8 = piramGaussJ(BY7);
 
-RG25i = imresize(-RG5, 8,'bicubic'); RG26i = imresize(-RG6,16,'bicubic');
-RG36i = imresize(-RG6, 8,'bicubic'); RG37i = imresize(-RG7,16,'bicubic');
-RG47i = imresize(-RG7, 8,'bicubic'); RG48i = imresize(-RG8,16,'bicubic');
+RG25i = imresize(-RG5, 8,metInt); RG26i = imresize(-RG6,16,metInt);
+RG36i = imresize(-RG6, 8,metInt); RG37i = imresize(-RG7,16,metInt);
+RG47i = imresize(-RG7, 8,metInt); RG48i = imresize(-RG8,16,metInt);
 
-BY25i = imresize(-BY5, 8,'bicubic'); BY26i = imresize(-BY6,16,'bicubic');
-BY36i = imresize(-BY6, 8,'bicubic'); BY37i = imresize(-BY7,16,'bicubic');
-BY47i = imresize(-BY7, 8,'bicubic'); BY48i = imresize(-BY8,16,'bicubic');
+BY25i = imresize(-BY5, 8,metInt); BY26i = imresize(-BY6,16,metInt);
+BY36i = imresize(-BY6, 8,metInt); BY37i = imresize(-BY7,16,metInt);
+BY47i = imresize(-BY7, 8,metInt); BY48i = imresize(-BY8,16,metInt);
 
 RG25 = abs(RG2-RG25i); RG26 = abs(RG2-RG26i);
 RG36 = abs(RG3-RG36i); RG37 = abs(RG3-RG37i);
@@ -257,13 +244,31 @@ figure
 imshow(uint8(255*ones(m,n)-stand(S)))
 
 %% Sistema de Color Doble Oponente Complementado
-R = r - (g+b)/2;
-G = g - (b+r)/2;
-B = b - (r+g)/2;
-Y = (r+g)/2-abs(r-g)/2-b;
+[rows cols] = size(r);
 
-% figure
-% subplot(2,2,1); imshow(uint8(R))
-% subplot(2,2,2); imshow(uint8(G))
-% subplot(2,2,3); imshow(uint8(B))
-% subplot(2,2,4); imshow(uint8(Y))
+for i=1:rows
+    for j=1:cols
+        R(i,j) = r(i,j) - (g(i,j)+b(i,j))/2;
+        G(i,j) = g(i,j) - (b(i,j)+r(i,j))/2;
+        B(i,j) = b(i,j) - (r(i,j)+g(i,j))/2;
+        Y(i,j) = (r(i,j)+g(i,j))/2-abs(r(i,j)-g(i,j))/2-b(i,j);
+        
+        if(R(i,j)<=0) R(i,j)=0; end
+        if(G(i,j)<=0) G(i,j)=0; end
+        if(B(i,j)<=0) B(i,j)=0; end
+        if(Y(i,j)<=0) Y(i,j)=0; end
+    end
+end
+
+% R = r - (g+b)/2;
+% G = g - (b+r)/2;
+% B = b - (r+g)/2;
+% Y = (r+g)/2-abs(r-g)/2-b;
+
+
+
+figure
+subplot(2,2,1); imshow(uint8(R))
+subplot(2,2,2); imshow(uint8(G))
+subplot(2,2,3); imshow(uint8(B))
+subplot(2,2,4); imshow(uint8(Y))
