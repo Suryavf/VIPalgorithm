@@ -3,15 +3,21 @@ clc
 clear all
 close all
 
+% figure
+% set(gcf,'numbertitle','off','name','Imagen entrada')
+
 img  = imread('img/dog.jpg');
 r = double(img(177:1200,897:1920,1));
 g = double(img(177:1200,897:1920,2));
 b = double(img(177:1200,897:1920,3));
 
-% img  = imread('img/oso.jpg');
-% r = double(img(177:1200,177:1200,1));
-% g = double(img(177:1200,177:1200,2));
-% b = double(img(177:1200,177:1200,3));
+% img  = imread('img/portada.jpg');
+% r = double(img(177:1200,:,1));
+% g = double(img(177:1200,:,2));
+% b = double(img(177:1200,:,3));
+
+
+% subplot(2,3,1); imshow(img)
 
 % img  = imread('img/elefantes.jpg');
 % r = double(img(1:1024,177:1200,1));
@@ -23,10 +29,6 @@ b = double(img(177:1200,897:1920,3));
 % r = double(img(p:p+1023,q:q+1023,1));
 % g = double(img(p:p+1023,q:q+1023,2));
 % b = double(img(p:p+1023,q:q+1023,3));
-
-% Pesos
-ak = [0.2909    0.2545    0.2182    0.1455    0.0727    0.0182];
-%ak = [1 1 1   1 1 1];
 
 %% Característica de intensidad 
 I0 = (r+g+b)/3;
@@ -49,7 +51,7 @@ Imap = Imap/norm(Imap);
 Ip   = stand(Imap);
 
 %% Caracteristica de orientacion
-sigX = 10;    sigY  = 2;
+sigX = 10;    sigY  = 1;
 f0   = 1/5; sizeW = 39;
 
 O0   = filterGabor(I0,sigX,sigY,f0,   0,sizeW);
@@ -159,10 +161,26 @@ subplot(1,3,1); imshow(uint8(Ip)); title('Mapa de Intensidad')
 subplot(1,3,2); imshow(uint8(Op)); title('Mapa de Orientacion')
 subplot(1,3,3); imshow(uint8(Cp)); title('Mapa de Color')
 
-mS = (S - min(min(S)))*255/max(max(S));
-mS = mS.^2.5;
-mS = stand(mS);
+mS = (S - min(min(S)))/max(max(S));
+% kS = 2*(mS-0.5);
+% kS = 1+atan(30*kS+10)/pi;
+% mS = mS.*kS;
+mS = mS.^2;
+pS = stand(mS);
 
 figure
 set(gcf,'numbertitle','off','name','Salency Map')
-imshow(uint8(mS))
+imshow(uint8(pS))
+
+mS = imresize(mS,2,'bilinear');
+mI(:,:,1) = uint8(r.*mS);
+mI(:,:,2) = uint8(g.*mS);
+mI(:,:,3) = uint8(b.*mS);
+
+a = 1 ;
+
+figure
+set(gcf,'numbertitle','off','name','Resultado')
+subplot(1,2,1); imshow(img); title('Imagen original')
+% subplot(1,2,2); imshow(mI);  title('Atencion Bottom up')
+subplot(1,2,2); imshow(uint8(pS));  title('Atencion Bottom up')
