@@ -24,7 +24,7 @@ for sigx = 1:20
             % Salency Map
             dirImg = strcat(dir,'/', data(4*cim+3,:) );
             img   = imread(dirImg);
-            exImg = reflec(img);
+            exImg = reflex(img);
             
             sm = saliencyMap(exImg,sigx,sigy);
             
