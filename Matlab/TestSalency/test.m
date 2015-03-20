@@ -33,7 +33,7 @@ for sigx = 1:20
             sm   = iReflex(exSm,sizeImg);
             
             binImg = GMM(sm);
-            rectS  = quart(binImg); 
+            rectS  = sqr(binImg); 
             
             % Estudio
             rectD   = str2num(data(4*cim+5,:));
