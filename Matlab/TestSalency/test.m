@@ -21,18 +21,21 @@ medAUC = zeros(20,20);
 for sigx = 1:20
     for sigy = 1:20
         for cim = 0:many-1
-            % Salency Map
+            % Load data
             dirImg = strcat(dir,'/', data(4*cim+3,:) );
+            sizeImg = str2num(data(4*cim+4,:));
+            
             img   = imread(dirImg);
             exImg = reflex(img);
             
-            sm = saliencyMap(exImg,sigx,sigy);
+            % Salency Map
+            exSm = saliencyMap(exImg,sigx,sigy);
+            sm   = iReflex(exSm,sizeImg);
             
             binImg = GMM(sm);
             rectS  = quart(binImg); 
             
             % Estudio
-            sizeImg = str2num(data(4*cim+4,:));
             rectD   = str2num(data(4*cim+5,:));
             
             stadic      = study(rectD(1,:),rectS,sizeImg);
