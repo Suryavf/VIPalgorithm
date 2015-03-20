@@ -14,7 +14,7 @@ dir  = strcat(path,'Image');
 data = caseread(txt);
 many = str2num(data(1,:));
 
-  vAUC = zeros(1,cim);
+  vAUC = zeros(1,many);
 stdAUC = zeros(20,20);
 medAUC = zeros(20,20);
 
@@ -26,7 +26,7 @@ for sigx = 1:20
             img   = imread(dirImg);
             exImg = reflec(img);
             
-            sm = salencyMap(exImg,sigx,sigy);
+            sm = saliencyMap(exImg,sigx,sigy);
             
             binImg = GMM(sm);
             rectS  = quart(binImg); 
