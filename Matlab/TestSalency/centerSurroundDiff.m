@@ -1,15 +1,9 @@
-function diff = centerSurroundDiff(I0)
+function diff = centerSurroundDiff(I2,I3,I4,I5,I6,I7,I8)
 %% centerSurroundDiff
 %    I0: Imagen de entrada
 %  diff: Diferencia centro-al rededor
 
 method = 'bilinear';
-
-% Piramide Gaussiana
-I1 = impyramid (I0, 'reduce');  I2 = impyramid (I1, 'reduce');
-I3 = impyramid (I2, 'reduce');  I4 = impyramid (I3, 'reduce');
-I5 = impyramid (I4, 'reduce');  I6 = impyramid (I5, 'reduce');
-I7 = impyramid (I6, 'reduce');  I8 = impyramid (I7, 'reduce');
 
 % Interpolacion
 I25i = imresize(I5, 8,method); I26i = imresize(I6,16,method);
