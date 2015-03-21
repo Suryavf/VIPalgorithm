@@ -22,7 +22,7 @@ for sigx = 1:20
     for sigy = 1:20
         for cim = 0:many-1
             % Load data
-            dirImg = strcat(dir,'/', data(4*cim+3,:) );
+            dirImg  = strcat(dir,'/', data(4*cim+3,:) );
             sizeImg = str2num(data(4*cim+4,:));
             
             img   = imread(dirImg);
@@ -30,6 +30,7 @@ for sigx = 1:20
             
             % Salency Map
             exSm = saliencyMap(exImg,sigx,sigy);
+            exSm = imresize(exSm,4,'bilinear');
             sm   = iReflex(exSm,sizeImg);
             
             binImg = GMM(sm);
