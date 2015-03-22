@@ -29,7 +29,7 @@ for sigx = 1:20
             exImg = reflex(img);
             
             % Salency Map
-            exSm = saliencyMap(exImg,sigx,sigy);
+            exSm = saliencyMap(exImg);
             exSm = imresize(exSm,4,'bilinear');
             sm   = iReflex(exSm,sizeImg);
             
