@@ -33,13 +33,14 @@ for sigx = 1:20
             exSm = imresize(exSm,4,'bilinear');
             sm   = iReflex(exSm,sizeImg);
             
+            sm = stand(sm);
             binImg = GMM(sm);
-            rectS  = sqr(binImg); 
+            rectS  = sqr(binImg);
             
             % Estudio
             rectD   = str2num(data(4*cim+5,:));
             
-            stadic      = study(rectD(1,:),rectS,sizeImg);
+            stadic      = study(sm,rectD(2,:),sizeImg);
             vAUC(cim+1) = ROC(stadic);
         end % cim
         
