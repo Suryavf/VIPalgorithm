@@ -18,8 +18,8 @@ TN = 1 - FP;
 FN = 1 - TP;
 
 sensibilidad=TP./(TP+FN); f_a=FP./(FP+TN);
-plot(f_a, sensibilidad);
-axis([0 1 0 1])
+%plot(f_a, sensibilidad);
+%axis([0 1 0 1])
 
 AUC=0;
 for i=1:many-1

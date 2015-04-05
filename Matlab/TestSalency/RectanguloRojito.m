@@ -1,6 +1,6 @@
 function [ ImRect ] = RectanguloRojito( Imagen , rect )
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%% RectanguloRojito
+%   La cagas
 
 [fii,cii;fsd,csd]=rect;
 ImRect = Imagen;
