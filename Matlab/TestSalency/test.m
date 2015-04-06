@@ -42,7 +42,7 @@ for cim = 0:many-1
     sm = stand(sm);
     %binImg = GMM(sm);
     %rectS  = sqr(binImg);
-
+ 
     % Estudio
     rectD   = str2num(data(4*cim+5,:));
 

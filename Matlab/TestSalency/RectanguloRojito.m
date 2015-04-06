@@ -1,8 +1,11 @@
 function [ ImRect ] = RectanguloRojito( Imagen , rect )
 %% RectanguloRojito
-%   La cagas
+%   
+%   |(fsd,cii)            |
+%   |                     |
+%   |            (fii,csd)|
 
-[fii,cii;fsd,csd]=rect;
+[fii cii fsd csd]=rect;
 ImRect = Imagen;
 
 ImRect(fsd:fii,cii,1)=255;
@@ -22,4 +25,3 @@ ImRect(fii,cii:csd,2)=0;
 ImRect(fii,cii:csd,3)=0;
 
 end
-
