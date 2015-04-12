@@ -24,7 +24,6 @@ medAUC = zeros(20,20);
 %    end % sigx
 %end % sigy
 
-many
 for cim = 0:many-1
     % Load data
     dirImg  = strcat(dir,'/', data(4*cim+3,:) );
@@ -48,12 +47,10 @@ for cim = 0:many-1
 
     stadic      = study(sm,rectD(3,:),sizeImg);
     vAUC(cim+1) = ROC(stadic);
-    
-    cim
 end % cim
 
 %stdAUC(sigx,sigy)= std(vAUC);
 %medAUC(sigx,sigy)=mean(vAUC);
 
-stdAUC = std(vAUC);
-medAUC = mean(vAUC);
+stdAUC = std(vAUC)
+medAUC = mean(vAUC)
