@@ -3,7 +3,8 @@ function binImg = GMM( sm )
 %      sm: Saliency Map
 %  binImg: Imagen binaria de salida
 I=double(sm);
-umbral = 140;
+umbral = round(max(max(sm))/2);
+%umbral = 200;
 Isegmentada = I;
 
 [nf,nc] = size(I);

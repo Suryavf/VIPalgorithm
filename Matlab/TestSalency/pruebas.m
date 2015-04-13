@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-img   = imread('/home/victor/Documentos/Projects/VIPalgorithm/img/Lenna.png');
+img   = imread('C:\Users\PIERO\Documents\Proyectos Electrónica\En Proceso\VIP Algorithm\GIT Repository\VIPalgorithm\img\dog.jpg');
 sizeImg = size(img);
 sizeImg = sizeImg(2:-1:1);
 

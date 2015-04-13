@@ -7,8 +7,8 @@ clc
 clear all
 close all
 
-path = '/home/victor/Documentos/Saliency/imageSetA/';
-txt  = strcat(path,'Data/0_data.txt'); 
+path = 'C:\Users\PIERO\Documents\Proyectos Electrónica\En Proceso\VIP Algorithm\GIT Repository\VIPalgorithm\img\';
+txt  = strcat(path,'Data\0_data.txt'); 
 dir  = strcat(path,'Image');
 
 data = caseread(txt);
@@ -24,12 +24,15 @@ medAUC = zeros(20,20);
 %    end % sigx
 %end % sigy
 
-for cim = 0:many-1
+%for cim = 0:many-1
+for cim = 0:3
     % Load data
     dirImg  = strcat(dir,'/', data(4*cim+3,:) );
     sizeImg = str2num(data(4*cim+4,:));
 
     img   = imread(dirImg);
+    figure
+    imshow(img)
     img   = check(img,sizeImg);
     exImg = reflex(img,sizeImg);
 
@@ -41,6 +44,8 @@ for cim = 0:many-1
     sm = stand(sm);
     %binImg = GMM(sm);
     %rectS  = sqr(binImg);
+    figure
+    imshow(uint8(sm))
  
     % Estudio
     rectD   = str2num(data(4*cim+5,:));
