@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-img   = imread('/home/victor/Documentos/Projects/VIPalgorithm/img/Lenna.png');
+img   = imread('/home/victor/Documentos/Projects/VIPalgorithm/img/oso.jpg');
 sizeImg = size(img);
 sizeImg = sizeImg(2:-1:1);
 
