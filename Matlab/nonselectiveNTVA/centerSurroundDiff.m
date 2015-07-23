@@ -1,7 +1,7 @@
 function diff = centerSurroundDiff(I2,I3,I4,I5,I6,I7,I8)
 %% centerSurroundDiff
 %    I0: Imagen de entrada
-%  diff: Diferencia centro-al rededor
+%  diff: Diferencia centro-alrededor
 
 method = 'bilinear';
 

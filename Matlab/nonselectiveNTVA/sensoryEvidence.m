@@ -2,7 +2,7 @@ function n = sensoryEvidence(obj,numObj,visualFn)
 %% sensoryEvidence
 %       obj: Mapa de objetos. Etiquetados 
 %    numObj: Numero de objeros
-% visualFun: Funcion Visual. Intencidad, Color, Orientacion
+% visualFun: Funcion Visual. Intensidad, Color, Orientacion
 [rows,cols] = size(obj);
 n           = zeros(numObj,3);
 numPixelObj = zeros(1,numObj);

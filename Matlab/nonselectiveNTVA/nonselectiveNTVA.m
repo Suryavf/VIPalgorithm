@@ -10,7 +10,7 @@ img     = imread('img/dog.jpg');
 sizeImg = size(img);
 exImg   = reflex(img,sizeImg);
 
-% Salency Map
+% Saliency Map
 [exSm,exI,exC,exO] = saliencyMap(exImg);
 
 sm = iReflex(exSm,sizeImg);

@@ -4,7 +4,7 @@ function outImg = reflex(inImg,sizeImg)
 %  sizeImg: tamaño de la imagen (dataset)
 %   outImg: imagen de salida
 
-rows = sizeImg(2); cols = sizeImg(1);
+rows = sizeImg(1); cols = sizeImg(2);
 nRows = 2^( ceil(log2(rows)) );
 nCols = 2^( ceil(log2(cols)) );
 
