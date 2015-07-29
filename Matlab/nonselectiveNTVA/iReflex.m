@@ -12,4 +12,3 @@ dCols = ceil((nCols-cols)/2);
 
 imgOut(:,:,:) = exImg(dRows+1:dRows+rows, dCols+1:dCols+cols, :);
 end
-
